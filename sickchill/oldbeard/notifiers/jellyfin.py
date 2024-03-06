@@ -26,7 +26,7 @@ class Notifier(object):
             return False
 
         try:
-            response = requests.post(url, params=params, headers=self._make_headers(jellyfin_apikey))
+            response = requests.post(url, json=params, headers=self._make_headers(jellyfin_apikey))
             if response:
                 logger.debug(_("JELLYFIN: HTTP response: {content}").format(content=response.content))
             response.raise_for_status()
