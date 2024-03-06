@@ -18,6 +18,7 @@ class Notifier(object):
             Returns True for no issue or False if there was an error
 
         """
+        # https://api.jellyfin.org/#tag/Notifications/operation/CreateAdminNotification
         url = urljoin(host or settings.JELLYFIN_HOST, "Notifications/Admin")
         params = {"Name": "SickChill", "Description": message, "NotificationLevel": "Normal"}
 
@@ -59,8 +60,10 @@ class Notifier(object):
             params = {}
             if show:
                 params.update({"TvdbId": show.indexerid})
+                # https://api.jellyfin.org/#tag/Library/operation/PostAddedSeries
                 url = urljoin(settings.JELLYFIN_HOST, "Library/Series/Added")
             else:
+                # https://api.jellyfin.org/#tag/Library/operation/RefreshLibrary
                 url = urljoin(settings.JELLYFIN_HOST, "Library/Refresh")
 
             try:
